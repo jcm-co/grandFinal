@@ -1,9 +1,14 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.6.7;
 
 // restrict a function so it can only be used by owner of the contract
 //import "./Ownable.sol";
 //https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/utils/SafeCast.sol";
+
+// import PriceConsumer contract to pay salary in USD
+import "./PriceConsumerV3.sol";
+
+
 
 // employer address, ato address - "0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2","0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c"
 // import data "David Raj","0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db","100000","10","0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB","USD","monthly","full-time"
@@ -15,6 +20,12 @@ contract SalaryProcessor{
     
     address payable employer_address;
     address payable ato_address;
+    
+    // Declaring the variable that represents the EthUsd fX rate. (i) first you have to create a new variable, then that variable has to call the function
+    PriceConsumerV3 latest_fx = new PriceConsumerV3();
+    uint public EthUsd = latest_fx.getLatestPrice();
+     
+    
     //map in solidity is not loopable. So address array would be used to keep track of number of active employees.
     address payable[]  public arr_onboarded_employees; //@TODO make it private after unit testing.
     event Balance(uint balance);
