@@ -5,7 +5,7 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/token/ERC20/ERC20Mintable.sol";
 
 
-contract GrandFinalToken is ERC20,ERCDetailed, ERC20Mintable {
+contract CompanyToken is ERC20,ERCDetailed, ERC20Mintable {
 
     address payable public owner = msg.sender;
     //sender is the employer
