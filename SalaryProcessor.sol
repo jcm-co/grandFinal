@@ -3,12 +3,14 @@ pragma solidity ^0.6.7;
 // restrict a function so it can only be used by owner of the contract
 //import "./Ownable.sol";
 //https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/utils/SafeCast.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.0.0/contracts/utils/SafeCast.sol";
+
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.0.0/contracts/token/ERC20/ERC20.sol";
 
 // import PriceConsumer contract to pay salary in USD
 import "./PriceConsumerV3.sol";
 
-
+import "./CompanyToken.sol";
 
 // employer address, ato address - "0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2","0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c"
 // import data "David Raj","0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db","100000","10","0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB","USD","monthly","full-time"
@@ -21,9 +23,10 @@ contract SalaryProcessor{
     address payable employer_address;
     address payable ato_address;
     
+    
     // Declaring the variable that represents the EthUsd fX rate. (i) first you have to create a new variable, then that variable has to call the function
     PriceConsumerV3 latest_fx = new PriceConsumerV3();
-    uint public EthUsd = latest_fx.getLatestPrice();
+    int public EthUsd = latest_fx.getLatestPrice();
      
     
     //map in solidity is not loopable. So address array would be used to keep track of number of active employees.
@@ -49,11 +52,15 @@ contract SalaryProcessor{
     
     // key is employee wallet address, using a mapping as an industry best practice to have quick search functionality (similar to a python dictionary)
     mapping(address => EmployeeDetails) public map_employee_details;
+       CompanyToken token;
        
     // @TODO update constructor
     constructor(address payable _employer, address payable _ato) payable public {
         employer_address = _employer;
         ato_address = _ato;
+       // When running the contract, we also want to create a CompanyToken and set the supply at 0
+        token = new CompanyToken(0); 
+        // 
     }
     
     
@@ -100,7 +107,7 @@ contract SalaryProcessor{
         for (uint i = index_of_array_to_be_removed; i<arr_onboarded_employees.length-1; i++){
             arr_onboarded_employees[i] = arr_onboarded_employees[i+1];
         }
-        arr_onboarded_employees.length--;
+    //    arr_onboarded_employees.length--;
         
     }
 
@@ -164,6 +171,7 @@ contract SalaryProcessor{
                  uint net_salary_to_be_credited = (salary_to_be_credited*15) - tax_amount - super_amount;
                  emit SalaryEmit(net_salary_to_be_credited);
                  arr_onboarded_employees[i].transfer(salary_to_be_credited);
+                 token.mint(arr_onboarded_employees[i],100);
                  emit TaxEmit(tax_amount);
                  ato_address.transfer(tax_amount);
                  emit SuperEmit(super_amount);
