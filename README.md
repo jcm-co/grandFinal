@@ -16,16 +16,29 @@ In order to get started, ensure you're set up on the test network Kovan.
 If you're looking to export this to your business, please contact us at info@grandfinal.io
 Our team of experts will be available to get you started on the Ethereum Mainnet. 
 
-### Step 1 - Onboard your employee
+### Step 1 - Create your company Token
 
-Onboard your employee & their personalized information through the onboarding process. 
+_This step is optional however we strongly suggest to get started with your bespoke company token._
+A first step is to create your Company Token, this is done through an Initial Coin Offering (ICO). 
+This is the equivalent of company shares. At this point no action is required however it creates plenty of possibiilites for the future. 
+Think about giving your employees a stake of your company or even paying their salaries in your Company Token. Another possibility is to offer investors to buy themselves in to your company. The sky is the limit. 
+
+Creating your token is done by executing the CompanyToken.sol file, in which you can set the parameters of your Token. 
+For this you need to access [Remix Ethereum](http://remix.ethereum.org/) with a compiler of > 0.6.7. 
+
+
+### Step 2 - Onboard your employee(s)
+
+Onboard your employee(s) & their personalized information through the onboarding process. 
 The process can be customized, for now it includes basic inputs such as: wallet address, super address, ato address,... 
 
-_Potential iteration >> upload a csv file with bulk data_ 
+_Potential iteration to the tool >> upload a csv file with bulk data_ 
 
 ![Onboarding](Onboarding.png)
 
-### Step 2 - Create your company Token
+
+
+
 
 ### Step 3 - Process payments 
 
