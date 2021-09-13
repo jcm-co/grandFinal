@@ -4,17 +4,35 @@ As a final project of the FinTech bootcamp, our team has developed a new way of 
 By leveraging Smart Contracts technology you can now easily process your corporate payroll in a fast & secure manner. 
 Our team can create a bespoke environment for your company to accommodate for loalized tax schemes, bonus structures, share structures, benefits,... 
 
+For this product we've chosen to leverage a Minimum Viable Product, with a number of product improvements mentioned in this document. 
+It is our objective to add these features in the near future. 
+
 # Tools
 
 * [Remix Ethereum](http://remix.ethereum.org/)
 * MetaMask
 * Ganache _(you can create a test wallet here, get some ethereum in your test wallet [here](https://faucet.ropsten.be/)._
 
-## General information 
+## Technical Setup 
 
 In order to get started, ensure you're set up on the test network Kovan. 
 If you're looking to export this to your business, please contact us at info@grandfinal.io
 Our team of experts will be available to get you started on the Ethereum Mainnet. 
+
+## Business opportunity 
+* Speed - instant payment cross border
+* Flexibility of payment for the employee
+* Security - on the Ethereum blockchain
+* Transparency of salaries for larger companies
+* Lower cost vs classic payment - no middleman fees
+* Less administrative overhead costs
+* Efficient payment of Taxes and Superannuation within the contract
+
+Token at the centre of your company's universe 
+
+Product improvement: Employee can pick their remuneration package based on X amount of company tokens  
+
+
 
 ### Step 1 - Create your company Token
 
