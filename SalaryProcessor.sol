@@ -29,11 +29,12 @@ contract SalaryProcessor{
     address payable employer_address;
     address payable ato_address;
     
-    
+ // @TODO can't use this function because we are poor on the test network. if you have money, please uncomment this section so you can pay in USD.  
+ 
     // Declaring the variable that represents the EthUsd fX rate. (i) first you have to create a new variable, then that variable has to call the function
     PriceConsumerV3 latest_fx = new PriceConsumerV3();
- // @TODO can't use this function because we are poor on the test network. if you have money, please uncomment this section so you can pay in USD. 
- //    int public EthUsd = latest_fx.getLatestPrice();
+
+    int public EthUsd = latest_fx.getLatestPrice();
      
     
     //map in solidity is not loopable. So address array would be used to keep track of number of active employees.
