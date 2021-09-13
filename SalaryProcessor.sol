@@ -1,44 +1,39 @@
 pragma solidity ^0.6.7;
 
-// restrict a function so it can only be used by owner of the contract
-//import "./Ownable.sol";
-//https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/
+// import to avoid underflow & overflow situation 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.0.0/contracts/utils/SafeCast.sol";
-
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.0.0/contracts/token/ERC20/ERC20.sol";
-
 // import PriceConsumer contract to pay salary in USD
 import "./PriceConsumerV3.sol";
-
+// import CompanyToken contract to create your Company Token
 import "./CompanyToken.sol";
+// import ERC20 standard for the creation of your Company Token 
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.0.0/contracts/token/ERC20/ERC20.sol";
 
-// JC address employer kovan test network "0xB698666265689e1c2C7eA12a054c47f281EbCe98","0xa2BCb92f0dD97363b506DAb75C703906997f9a38","RAJRAJ","RAJ"
-// JC test import1 "David JC","0x4A0514c470FeB8cB6ea55782850aeDB468C05535","100000","10","0x35dEf068c78b98bB49630A8e72FD22C19b89034f","USD","monthly","full-time"
-// JC test import2 "David Raj","0x143ccA60c3CB2b751a008b2Cad4C51B67c95baFe","100000","10","0x35dEf068c78b98bB49630A8e72FD22C19b89034f","USD","monthly","full-time"
+// Data to test this project on Kovan Test Network
+
+// Input #1 - (_employer, _ato, COMPANY_NAME, COMPANY_TICKER) "0xB698666265689e1c2C7eA12a054c47f281EbCe98","0xa2BCb92f0dD97363b506DAb75C703906997f9a38","RAJRAJ","RAJ"
+// Input #2 "David JC","0x4A0514c470FeB8cB6ea55782850aeDB468C05535","100000","10","0x35dEf068c78b98bB49630A8e72FD22C19b89034f","USD","monthly","full-time"
+// Input #3 "David Raj","0x143ccA60c3CB2b751a008b2Cad4C51B67c95baFe","100000","10","0x35dEf068c78b98bB49630A8e72FD22C19b89034f","USD","monthly","full-time"
+
+// Data to test this project on local remix network
 
 // employer address, ato address - "0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2","0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c"
 // import data "David Raj","0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db","100000","10","0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB","USD","monthly","full-time"
 // import data "David JC","0xdD870fA1b7C4700F2BD7f44238821C26f7392148","100000","10","0x583031D1113aD414F02576BD6afaBfb302140225","USD","monthly","full-time"
-
-// employee Address "0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c"
-
-    // "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4","0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2","RAJRAJ","RAJ"
 
 contract SalaryProcessor{
     
     address payable employer_address;
     address payable ato_address;
     
- // @TODO can't use this function because we are poor on the test network. if you have money, please uncomment this section so you can pay in USD.  
- 
-    // Declaring the variable that represents the EthUsd fX rate. (i) first you have to create a new variable, then that variable has to call the function
+    // Importing fx price via oracle (Chainlink). 
+    // Code logic: declaring the variable that represents the EthUsd fX rate. (i) first you have to create a new variable, then that variable has to call the function
     PriceConsumerV3 latest_fx = new PriceConsumerV3();
-
-    int public EthUsd = latest_fx.getLatestPrice();
+ // @TODO coding line below needs to be commented out when testing on your local remix network. If running via Kovan network, you can uncomment it. 
+//    int public EthUsd = latest_fx.getLatestPrice();
      
-    
     //map in solidity is not loopable. So address array would be used to keep track of number of active employees.
-    address payable[]  public arr_onboarded_employees; //@TODO make it private after unit testing.
+    address payable[]  public arr_onboarded_employees; //@TODO make it private if deployed to customer on mainnet
     event Balance(uint balance);
     event SalaryEmit(uint salary);
     event TaxEmit(uint tax);
@@ -58,14 +53,11 @@ contract SalaryProcessor{
         uint last_payment;
     }  
     
-
-    
     
     // key is employee wallet address, using a mapping as an industry best practice to have quick search functionality (similar to a python dictionary)
     mapping(address => EmployeeDetails) public map_employee_details;
        CompanyToken token;
        
-    // @TODO update constructor
     constructor(address payable _employer, address payable _ato, string memory company_name, string memory company_ticker) payable public {
         employer_address = _employer;
         ato_address = _ato;
@@ -73,7 +65,6 @@ contract SalaryProcessor{
         token = new CompanyToken(0, company_name, company_ticker); 
         // 
     }
-    
     
     function stringToUint(string memory s) public returns (uint){
         bool hasError = false;
@@ -97,16 +88,13 @@ contract SalaryProcessor{
         return (result);
     }
 
-    
-    // @TODO update function to capture EmployeeDetails & add to array of structures 
     function OnboardEmployee(string memory employee_name, address payable employee_address, string memory employee_salary_gross,
         string memory super_percentage, address payable super_address, string memory preferred_currency, string memory payment_frequency, string memory employee_type) public{
         EmployeeDetails memory ed = EmployeeDetails(employee_name, stringToUint(employee_salary_gross),0,10,super_address,preferred_currency,stringToUint(payment_frequency),employee_type,now,0);
         map_employee_details[employee_address] = ed;
         arr_onboarded_employees.push(employee_address);
     }   
-    
-    // @TODO update array of structures by removing EmployeeDetails 
+
     function OffboardEmployee(address employee_address) public {
         delete map_employee_details[employee_address];
         uint index_of_array_to_be_removed;
@@ -118,42 +106,32 @@ contract SalaryProcessor{
         for (uint i = index_of_array_to_be_removed; i<arr_onboarded_employees.length-1; i++){
             arr_onboarded_employees[i] = arr_onboarded_employees[i+1];
         }
-    //    arr_onboarded_employees.length--;
         
     }
-
-    // @TODO calculate if a bonus or comission is applicable 
-    // function CalculateBonus(){}
 
     // Calculate tax amount, withdraw from gross salary and transfer to ATO
     function Tax(address employee_address) public payable returns(uint) {
         uint tax;
         uint Salary = map_employee_details[employee_address].employee_salary_gross;
-        // @TODO - calculate tax amount - function implies a simplistic tax percentage (further if statements to be added to define percentages)
         if (Salary <= 18000) {tax = 0;}
         else if (Salary <= 45000) {tax = ((Salary - 18200) * 19 / 100);}
         else if (Salary <= 120000) {tax = ((Salary - 45001) * 325 / 1000 + 5092);}
         else if (Salary <= 180000) {tax = ((Salary - 120000) * 37 / 100 + 29467);}
         else if (Salary > 180000) {tax = ((Salary - 180001) * 45 / 100 + 51667);}
-    
-        // send amount to ATO
-        //ato_address.transfer(tax);
         return tax;
         
     }
     
- // @TODO calculate super_amount based on super_percentage + transfer to super_address
     function Super(address employee_address) public payable returns(uint) {
         uint super_amount;
         uint salary = map_employee_details[employee_address].employee_salary_gross;
         // calculate super amount
         super_amount = (salary * map_employee_details[employee_address].super_percentage)/100;
-        // send super amount to super company
         return super_amount;
         
     }
     
-    // @TODO loop through EmployeeDetails array and make all individual payments + define payment_frequency
+    // Loop through EmployeeDetails array and make all individual payments + define payment_frequency
      function PaySalary() public payable{
          EmployeeDetails memory ed;
          uint days_from_last_payment;
@@ -162,7 +140,7 @@ contract SalaryProcessor{
          uint salary_to_be_credited;
          for(uint i = 0; i < arr_onboarded_employees.length;i++){
              ed = map_employee_details[arr_onboarded_employees[i]];
-             //calculate how many days elapsed from last payment.
+             //calculate how many days elapsed since last payment.
              if (ed.last_payment != 0)
              {
                  days_from_last_payment = (now - ed.onboarding_date)/ 60 / 60 / 24;
@@ -172,14 +150,14 @@ contract SalaryProcessor{
                  days_from_last_payment = (now - ed.last_payment)/ 60 / 60 / 24;
              }
              
-             //Check if payment processing to be done now
+             // Check if payment processing has to be done now
              if (days_from_last_payment >= ed.payment_frequency)
              {
-                 tax_amount = (Tax(arr_onboarded_employees[i])/365)*15;
-                 super_amount = (Super(arr_onboarded_employees[i])/365)*15;
+                 tax_amount = (Tax(arr_onboarded_employees[i])/365)*ed.payment_frequency;
+                 super_amount = (Super(arr_onboarded_employees[i])/365)*ed.payment_frequency;
                  salary_to_be_credited = ed.employee_salary_gross/365;
                  emit SalaryEmit(salary_to_be_credited);
-                 uint net_salary_to_be_credited = (salary_to_be_credited*15) - tax_amount - super_amount;
+                 uint net_salary_to_be_credited = (salary_to_be_credited*ed.payment_frequency) - tax_amount - super_amount;
                  emit SalaryEmit(net_salary_to_be_credited);
                  arr_onboarded_employees[i].transfer(salary_to_be_credited);
                  token.mint(arr_onboarded_employees[i],100);
@@ -195,28 +173,5 @@ contract SalaryProcessor{
      function PayToAddress() public payable {
          ato_address.transfer(1);
      }
-
-    
-    // @TODO convert initial salary to preferred payout currency + include Oracle Chainlink to add currency rate 
-    // function ConvertPreferredCurrency(){}
-    
-//   // @TODO loop through EmployeeDetails array and make all individual payments + define payment_frequency
-//     function PaySalary() public {
-//         uint NetSalary;
-//         // update pay timestamp     
-//         // define net salary
-//         NetSalary = EmployeeDetails.employee_salary_gross - Tax();
-//         employer_address.transfer(NetSalary);
-//     }
-    
-    
-    // possible features of the contract - to be created afterwards
-    // function AnnualSalaryReview() - function to evaluate salary based on inflation or market environment 
-
-    // @TODO calculate tenure of an employee for Token calculation 
-    // function CalculateTenure() 
-    
-    // @TODO calculate payment_frequency based on employee_type (eg. employee is based in USA therefore needs fortnightly payments)
-    
     
 }
