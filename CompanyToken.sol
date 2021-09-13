@@ -32,7 +32,7 @@ contract CompanyToken is ERC20 {
         _;
     }
     // @TODO: Pass the required parameters to `ERC20Detailed`
-    constructor(uint initial_supply) ERC20('CompanyToken','COMP9999') public {
+    constructor(uint initial_supply, string memory company_name, string memory company_ticker) ERC20(company_name, company_ticker) public {
         // @TODO: Set the owner to be `msg.sender`
         owner = msg.sender;
         // @TODO: Call the internal `_mint` function to give `initial_supply` to the `owner`
