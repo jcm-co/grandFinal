@@ -18,7 +18,7 @@ Our team of experts will be available to get you started on the Ethereum Mainnet
 
 ### Step 1 - Onboard your employee
 
-![Onboarding Process](Onboarding_Grand Final.png)
+![Onboarding Process](Onboarding_GrandFinal.png)
 
 ### Step 2 - Create your company Token
 
