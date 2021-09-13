@@ -23,7 +23,7 @@ The process can be customized, for now it includes basic inputs such as: wallet 
 
 _Potential iteration >> upload a csv file with bulk data_ 
 
-![Onboarding Process](Onboarding_GrandFinal.png)
+![Onboarding](Onboarding.png)
 
 ### Step 2 - Create your company Token
 
