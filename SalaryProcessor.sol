@@ -12,11 +12,17 @@ import "./PriceConsumerV3.sol";
 
 import "./CompanyToken.sol";
 
+// JC address employer kovan test network "0xB698666265689e1c2C7eA12a054c47f281EbCe98","0xa2BCb92f0dD97363b506DAb75C703906997f9a38","RAJRAJ","RAJ"
+// JC test import1 "David JC","0x4A0514c470FeB8cB6ea55782850aeDB468C05535","100000","10","0x35dEf068c78b98bB49630A8e72FD22C19b89034f","USD","monthly","full-time"
+// JC test import2 "David Raj","0x143ccA60c3CB2b751a008b2Cad4C51B67c95baFe","100000","10","0x35dEf068c78b98bB49630A8e72FD22C19b89034f","USD","monthly","full-time"
+
 // employer address, ato address - "0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2","0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c"
 // import data "David Raj","0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db","100000","10","0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB","USD","monthly","full-time"
 // import data "David JC","0xdD870fA1b7C4700F2BD7f44238821C26f7392148","100000","10","0x583031D1113aD414F02576BD6afaBfb302140225","USD","monthly","full-time"
 
 // employee Address "0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c"
+
+    // "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4","0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2","RAJRAJ","RAJ"
 
 contract SalaryProcessor{
     
@@ -26,7 +32,8 @@ contract SalaryProcessor{
     
     // Declaring the variable that represents the EthUsd fX rate. (i) first you have to create a new variable, then that variable has to call the function
     PriceConsumerV3 latest_fx = new PriceConsumerV3();
-    int public EthUsd = latest_fx.getLatestPrice();
+ // @TODO can't use this function because we are poor on the test network. if you have money, please uncomment this section so you can pay in USD. 
+ //    int public EthUsd = latest_fx.getLatestPrice();
      
     
     //map in solidity is not loopable. So address array would be used to keep track of number of active employees.
@@ -50,16 +57,19 @@ contract SalaryProcessor{
         uint last_payment;
     }  
     
+
+    
+    
     // key is employee wallet address, using a mapping as an industry best practice to have quick search functionality (similar to a python dictionary)
     mapping(address => EmployeeDetails) public map_employee_details;
        CompanyToken token;
        
     // @TODO update constructor
-    constructor(address payable _employer, address payable _ato) payable public {
+    constructor(address payable _employer, address payable _ato, string memory company_name, string memory company_ticker) payable public {
         employer_address = _employer;
         ato_address = _ato;
        // When running the contract, we also want to create a CompanyToken and set the supply at 0
-        token = new CompanyToken(0); 
+        token = new CompanyToken(0, company_name, company_ticker); 
         // 
     }
     
