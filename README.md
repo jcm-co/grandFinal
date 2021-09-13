@@ -1,6 +1,6 @@
 # The Grand Final
 
-As a final project of the FinTech bootcamp, our team has developped a new way of managing your payroll. 
+As a final project of the FinTech bootcamp, our team has developed a new way of managing your payroll. 
 By leveraging Smart Contracts technology you can now easily process your corporate payroll in a fast & secure manner. 
 Our team can create a bespoke environment for your company to accommodate for loalized tax schemes, bonus structures, share structures, benefits,... 
 
