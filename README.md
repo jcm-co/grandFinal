@@ -18,6 +18,11 @@ Our team of experts will be available to get you started on the Ethereum Mainnet
 
 ### Step 1 - Onboard your employee
 
+Onboard your employee & their personalized information through the onboarding process. 
+The process can be customized, for now it includes basic inputs such as: wallet address, super address, ato address,... 
+
+_Potential iteration >> upload a csv file with bulk data_ 
+
 ![Onboarding Process](Onboarding_GrandFinal.png)
 
 ### Step 2 - Create your company Token
