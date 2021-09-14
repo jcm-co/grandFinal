@@ -2,7 +2,7 @@
 
 As a final project of the FinTech bootcamp, our team has developed a new way of managing your payroll. 
 By leveraging Smart Contracts technology you can now easily process your corporate payroll in a fast & secure manner. 
-Our team can create a bespoke environment for your company to accommodate for loalized tax schemes, bonus structures, share structures, benefits,... 
+Our team can create a bespoke environment for your company to accommodate for localized tax schemes, bonus structures, share structures, benefits,... 
 
 For this product we've chosen to leverage a Minimum Viable Product, with a number of product improvements mentioned in this document. 
 It is our objective to add these features in the near future. 
@@ -38,7 +38,7 @@ Through PayRoll you'll have
 As a first step you need to onboard your employee(s) & their personalized information through the onboarding process. 
 The process can be customized, for now it includes basic inputs such as: wallet address, super address, ato address,... 
 
-The screengrab below shows how the JavaScript page. 
+The screengrab below shows how the JavaScript page will render which again can be customized to suit your corporate environment. 
 
 _Product improvement: implement a csv bulk upload feature to accomodate for larger companies_ 
 
@@ -48,7 +48,7 @@ _Please note the functionality of the JavaScript website is not yet connected to
 
 ### Step 2 - Enter your corporate details & create your company Token
 
-In the next step your company will add their personalized details such as the employer wallet and ATO address.
+In the next step your company will add their corporate details such as the employer wallet and ATO address.
 In addition, the compnay name and company ticker are created with an initial supply of 0. 
 
 These tokens are the equivalent of company shares. At this point no action is required however it creates plenty of possibiilites for the future. 
