@@ -79,5 +79,10 @@ _Project note, unfortunately we had limited Faucet Tokens however below is a scr
 _Product improvement - the contract should still be automated by letting the contract run on a daily basis. This would be done through Python_ 
 
 
+## Group presentation 
+
+Our presentation can be found through this [link](https://docs.google.com/presentation/d/1pkGtXf4Ycx3PfIZa1DaqCv7liGBZAai46s1rgbe8NMY/edit#slide=id.p)
+
+
 ## Contributing
 Thanks to the help of Claudia and Liam for troubleshooting the contract!
