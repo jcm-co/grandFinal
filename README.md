@@ -11,7 +11,7 @@ It is our objective to add these features in the near future.
 
 * [Remix Ethereum](http://remix.ethereum.org/)
 * MetaMask
-* Ganache _(you can create a test wallet here, get some ethereum in your test wallet [here](https://faucet.ropsten.be/)._
+* Ganache _(You can create a test wallet through Ganache. Tip: get some ethereum in your test wallet [here](https://faucet.ropsten.be/))._
 
 ## Technical Setup 
 
