@@ -1,0 +1,285 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "address payable",
+				"name": "_employer",
+				"type": "address"
+			},
+			{
+				"internalType": "address payable",
+				"name": "_ato",
+				"type": "address"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "balance",
+				"type": "uint256"
+			}
+		],
+		"name": "Balance",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "salary",
+				"type": "uint256"
+			}
+		],
+		"name": "SalaryEmit",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "super_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "SuperEmit",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "tax",
+				"type": "uint256"
+			}
+		],
+		"name": "TaxEmit",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "employee_address",
+				"type": "address"
+			}
+		],
+		"name": "OffboardEmployee",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "employee_name",
+				"type": "string"
+			},
+			{
+				"internalType": "address payable",
+				"name": "employee_address",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "employee_salary_gross",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "super_percentage",
+				"type": "string"
+			},
+			{
+				"internalType": "address payable",
+				"name": "super_address",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "preferred_currency",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "payment_frequency",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "employee_type",
+				"type": "string"
+			}
+		],
+		"name": "OnboardEmployee",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "PaySalary",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "PayToAddress",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "employee_address",
+				"type": "address"
+			}
+		],
+		"name": "Super",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "employee_address",
+				"type": "address"
+			}
+		],
+		"name": "Tax",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "arr_onboarded_employees",
+		"outputs": [
+			{
+				"internalType": "address payable",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "map_employee_details",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "employee_name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "employee_salary_gross",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "employee_salary_net",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "super_percentage",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address payable",
+				"name": "super_address",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "preferred_currency",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "payment_frequency",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "employee_type",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "onboarding_date",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "last_payment",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "s",
+				"type": "string"
+			}
+		],
+		"name": "stringToUint",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]
